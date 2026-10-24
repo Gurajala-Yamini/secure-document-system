@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Password Reset Requests | TrustVault</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #071426, #123b60, #6941c6);
+            color: white;
+            min-height: 100vh;
+        }
+        main {
+            max-width: 850px;
+            margin: auto;
+            padding: 28px;
+            border-radius: 16px;
+            background: #ffffff12;
+            border: 1px solid #ffffff35;
+        }
+        h1 { color: #65d6ff; }
+        .message { overflow-wrap: anywhere; line-height: 1.6; }
+        .success { color: #a7f3d0; }
+        .error { color: #fecaca; }
+        .request {
+            margin-top: 16px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #ffffff12;
+            overflow-wrap: anywhere;
+        }
+        button {
+            border: 0;
+            border-radius: 7px;
+            padding: 10px 14px;
+            margin: 8px 6px 0 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .approve { background: #65d6ff; color: #071426; }
+        .reject { background: #fecaca; color: #7f1d1d; }
+        a { color: #65d6ff; }
+        .linkbox { overflow-wrap: anywhere; }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Password Reset Requests</h1>
+    <p>Verify the user's identity before approving a request.</p>
+
+    <p class="message success"
+       th:if="${success}"
+       th:text="${success}"></p>
+
+    <p class="message error"
+       th:if="${error}"
+       th:text="${error}"></p>
+
+    <section class="request" th:if="${resetLink}">
+        <h2>One-time reset link</h2>
+        <p>Share this link only with the verified user. It expires in 15 minutes and can be used once.</p>
+        <p class="linkbox" th:text="${resetLink}"></p>
+    </section>
+
+    <section class="request" th:each="request : ${requests}">
+        <h3 th:text="${'Username: ' + request.username}"></h3>
+        <p>
+            Submitted:
+            <span th:text="${request.createdAt}"></span>
+        </p>
+
+        <form th:action="@{/admin/reset-requests/{id}/approve(id=${request.id})}"
+              method="post"
+              style="display:inline">
+            <button class="approve" type="submit">Approve</button>
+        </form>
+
+        <form th:action="@{/admin/reset-requests/{id}/reject(id=${request.id})}"
+              method="post"
+              style="display:inline">
+            <button class="reject" type="submit">Reject</button>
+        </form>
+    </section>
+
+    <p th:if="${#lists.isEmpty(requests)}">
+        No pending reset requests.
+    </p>
+
+    <p><a th:href="@{/}">Back to TrustVault</a></p>
+</main>
+</body>
+</html>

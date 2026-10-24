@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | TrustVault</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            color: white;
+            background:
+                radial-gradient(circle at top left, #2879a8, transparent 40%),
+                linear-gradient(135deg, #071426, #123b60, #101b35);
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            padding: 36px;
+            border: 1px solid #ffffff35;
+            border-radius: 20px;
+            background: #ffffff12;
+            box-shadow: 0 20px 60px #00000045;
+            backdrop-filter: blur(14px);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .logo span { color: #65d6ff; }
+
+        .subtitle {
+            color: #c5d5e7;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-size: 14px;
+            color: #e5edf7;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ffffff35;
+            border-radius: 9px;
+            background: #07142680;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #65d6ff;
+            box-shadow: 0 0 0 3px #65d6ff20;
+        }
+
+        input::placeholder { color: #a8b8ca; }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #2879a8, #36b4d9);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover { filter: brightness(1.1); }
+
+        .error {
+            color: #ffc1c1;
+            background: #ff000018;
+            padding: 10px;
+            border-radius: 7px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5d5e7;
+            margin-top: 24px;
+            font-size: 14px;
+        }
+
+        a {
+            color: #65d6ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover { text-decoration: underline; }
+
+        .secure {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 12px;
+            color: #a8c2d8;
+        }
+    </style>
+</head>
+
+<body>
+<main class="card">
+
+    <div class="logo">Trust<span>Vault</span></div>
+
+    <h1>Create your account</h1>
+
+    <p class="subtitle">
+        Secure document management starts here.
+        Create an account to get started.
+    </p>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form th:action="@{/register}" method="post">
+
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+
+        <label for="companyName">Company Name</label>
+        <input type="text"
+               id="companyName"
+               name="companyName"
+               placeholder="Enter your company name"
+               minlength="2"
+               maxlength="100"
+               required>
+
+        <label for="username">Username</label>
+        <input type="text"
+               id="username"
+               name="username"
+               placeholder="Choose a username"
+               minlength="3"
+               maxlength="50"
+               autocomplete="username"
+               required>
+
+        <label for="email">Email Address</label>
+        <input type="email"
+               id="email"
+               name="email"
+               placeholder="Enter your email address"
+               autocomplete="email"
+               required>
+
+        <label for="password">Password</label>
+        <input type="password"
+               id="password"
+               name="password"
+               placeholder="At least 8 characters"
+               minlength="8"
+               autocomplete="new-password"
+               required>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password"
+               id="confirmPassword"
+               name="confirmPassword"
+               placeholder="Enter password again"
+               minlength="8"
+               autocomplete="new-password"
+               required>
+
+        <button type="submit">Create Account →</button>
+    </form>
+
+    <p class="footer">
+        Already have an account?
+        <a th:href="@{/login}">Log in</a>
+    </p>
+
+    <div class="secure">
+        🔒 Your documents deserve protection.
+    </div>
+
+</main>
+</body>
+</html>
