@@ -8,13 +8,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.1.1</version>
+        <version>3.3.5</version>
         <relativePath/>
     </parent>
 
     <groupId>com.trustvault</groupId>
     <artifactId>trustvault</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>trustvault</name>
     <description>TrustVault secure document sharing application</description>
 
@@ -23,7 +24,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -39,7 +39,6 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- Email support for Forgot Password OTP -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
@@ -52,7 +51,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -66,23 +65,13 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Comprehensive Spring Boot Test Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
-    <build>
-        <!-- Removed incorrect <sourceDirectory>java</sourceDirectory> to use default src/main/java -->
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <build><sourceDirectory>java</sourceDirectory><plugins><plugin><groupId>org.springframework.boot</groupId><artifactId>spring-boot-maven-plugin</artifactId></plugin></plugins></build>
 
 </project>
